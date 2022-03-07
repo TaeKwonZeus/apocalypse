@@ -1,0 +1,7 @@
+name: Apocalypse
+version: '${version}'
+main: com.github.bakane.apocalypse.Apocalypse
+api-version: 1.18
+authors: [ bakane, MrFunny, Jenya705 ]
+description: Apocalypse for Cubic World
+website: cubicworld.space
