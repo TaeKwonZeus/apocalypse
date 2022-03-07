@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    kotlin("jvm") version "1.6.20-RC"
 }
 
 group = "com.github.bakane"
@@ -19,6 +20,7 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 val targetJavaVersion = 17
@@ -27,17 +29,23 @@ java {
 }
 
 tasks {
-    withType<JavaCompile>().configureEach {
+    compileJava {
         if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible) {
             options.release.set(targetJavaVersion)
         }
     }
 
-    withType<ProcessResources> {
+    processResources {
         inputs.properties("version" to version)
         filteringCharset = "UTF-8"
         filesMatching("plugin.yml") {
             expand(inputs.properties)
+        }
+    }
+
+    compileKotlin {
+        kotlinOptions {
+            jvmTarget = "1.8"
         }
     }
 }
